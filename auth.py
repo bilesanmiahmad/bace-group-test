@@ -2,11 +2,13 @@ from flask import request, Response
 from flask_jwt_extended import create_access_token
 from database.models import User
 from flask_restful import Resource
+from flask_cors import cross_origin
 import datetime
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist
 from errors import SchemaValidationError, EmailAlreadyExistsError, UnauthorizedError, InternalServerError
 
 class Signup(Resource):
+    @cross_origin()
     def post(self):
         try:
             body = request.get_json()
@@ -23,6 +25,7 @@ class Signup(Resource):
 
 
 class LoginApi(Resource):
+    @cross_origin()
     def post(self):
         try:
             body = request.get_json()
